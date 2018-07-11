@@ -99,8 +99,8 @@ DAT.Globe = function(container, opts) {
 
     scene = new THREE.Scene();
 
-    //var geometry = new THREE.SphereGeometry(200, 40, 30);
-    var geometry = new THREE.CircleGeometry( 5, 24 );
+  var geometry = new THREE.SphereGeometry(200, 40, 30);
+//    var geometry = new THREE.CircleGeometry( 5, 24 );
 
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -407,4 +407,3 @@ DAT.Globe = function(container, opts) {
   return this;
 
 };
-

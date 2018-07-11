@@ -27,17 +27,18 @@ slider.append("line")
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
-    .attr("transform", "translate(0," + 18 + ")")
+    .attr("transform", "translate(0," + 24 + ")")
   .selectAll("text")
   .data(x.ticks(10))
   .enter().append("text")
     .attr("x", x)
     .attr("text-anchor", "middle")
+//    .attr("transform", "translate(0,8)")
     .text(function(d) { return d + "°"; });
 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
-    .attr("r", 9);
+    .attr("r", 12);
 
 slider.transition() // Gratuitous intro!
     .duration(750)
@@ -48,5 +49,5 @@ slider.transition() // Gratuitous intro!
 
 function hue(h) {
   handle.attr("cx", x(h));
-  svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+  svg.style("background-color", d3.hsla(0, 0, 0, 1));
 }
