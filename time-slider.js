@@ -9,7 +9,7 @@ var slider = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
 
 var x = d3.scaleLinear()
-    .domain([0, 180])
+    .domain([0, 96])
     .range([0, width])
     .clamp(true);
 
@@ -20,10 +20,7 @@ slider.append("line")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-inset")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    .attr("class", "track-overlay")
-    .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() { hue(x.invert(d3.event.x)); }));
+    .attr("class", "track-overlay");
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
@@ -39,15 +36,3 @@ slider.insert("g", ".track-overlay")
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 12);
-
-slider.transition() // Gratuitous intro!
-    .duration(750)
-    .tween("hue", function() {
-      var i = d3.interpolate(0, 70);
-      return function(t) { hue(i(t)); };
-  });
-
-function hue(h) {
-  handle.attr("cx", x(h));
-  svg.style("background-color", d3.hsla(0, 0, 0, 1));
-}

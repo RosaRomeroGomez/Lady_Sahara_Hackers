@@ -18,7 +18,7 @@ DAT.Globe = function(container, opts) {
 
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
-    c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
+    c.setHSL( ( 0.16 - ( x * 0.5 ) ), 1.0, 0.5 );
     return c;
   };
   var imgDir = opts.imgDir || '';
@@ -184,7 +184,7 @@ DAT.Globe = function(container, opts) {
     }
 
     if (opts.animated) {
-      if (this._baseGeometry === undefined) {
+      //if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
         for (i = 0; i < data.length; i += step) {
 
@@ -199,7 +199,7 @@ DAT.Globe = function(container, opts) {
 
           
         }
-      }
+      //}
       if(this._morphTargetId === undefined) {
         this._morphTargetId = 0;
       } else {
@@ -417,4 +417,3 @@ DAT.Globe = function(container, opts) {
   return this;
 
 };
-
