@@ -99,8 +99,7 @@ DAT.Globe = function(container, opts) {
 
     scene = new THREE.Scene();
 
-  var geometry = new THREE.SphereGeometry(200, 40, 30);
-//    var geometry = new THREE.CircleGeometry( 5, 24 );
+    var geometry = new THREE.SphereGeometry(200, 40, 30);
 
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -138,7 +137,9 @@ DAT.Globe = function(container, opts) {
     scene.add(mesh);
 
     geometry = new THREE.BoxGeometry(0.75, 0.75, 1);
+
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,-0.5));
+
 
     point = new THREE.Mesh(geometry);
 
@@ -186,12 +187,17 @@ DAT.Globe = function(container, opts) {
       if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
         for (i = 0; i < data.length; i += step) {
-          lat = data[i];
-          lng = data[i + 1];
-//        size = data[i + 2];
-          color = colorFnWrapper(data,i);
-          size = 0;
-          addPoint(lat, lng, size, color, this._baseGeometry);
+
+        if (data[i + 2]!==0){
+            lat = data[i];
+            lng = data[i + 1];
+            size = data[i + 2];
+            color = colorFnWrapper(data,i);
+            //size = 0;
+            addPoint(lat, lng, size, color, this._baseGeometry);
+          }
+
+          
         }
       }
       if(this._morphTargetId === undefined) {
@@ -203,12 +209,15 @@ DAT.Globe = function(container, opts) {
     }
     var subgeo = new THREE.Geometry();
     for (i = 0; i < data.length; i += step) {
-      lat = data[i];
-      lng = data[i + 1];
-      color = colorFnWrapper(data,i);
-      size = data[i + 2];
-      size = size*200;
-      addPoint(lat, lng, size, color, subgeo);
+      if (data[i + 2]!==0){
+        lat = data[i];
+        lng = data[i + 1];
+        color = colorFnWrapper(data,i);
+        size = data[i + 2];
+        size = size*200;
+        addPoint(lat, lng, size, color, subgeo);
+      }
+      
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
@@ -248,6 +257,7 @@ DAT.Globe = function(container, opts) {
 
   function addPoint(lat, lng, size, color, subgeo) {
 
+
     var phi = (90 - lat) * Math.PI / 180;
     var theta = (180 - lng) * Math.PI / 180;
 
@@ -257,7 +267,7 @@ DAT.Globe = function(container, opts) {
 
     point.lookAt(mesh.position);
 
-    point.scale.z = Math.max( size, 0.1 ); // avoid non-invertible matrix
+    point.scale.z = size; // avoid non-invertible matrix
     point.updateMatrix();
 
     for (var i = 0; i < point.geometry.faces.length; i++) {
@@ -407,3 +417,4 @@ DAT.Globe = function(container, opts) {
   return this;
 
 };
+
