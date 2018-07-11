@@ -26,7 +26,7 @@ def parse_csv(file_name):
 			months = set(months)
 
 			for i in months:
-			 	with open("../output/" + i + '_.json', 'w') as output:
+			 	with open("../output/" + i + '.json', 'w') as output:
 			 		month_data = []
 			 		for rows in reader:
 			 			month = rows[0][4:]
