@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>WebGL Globe</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+  </head>
+  <body>
+
+  <div id="container"></div>
+
+  <div id="info">
+    <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong> <span class="bull">&bull;</span> Created by the Google Data Arts Team <span class="bull">&bull;</span> Data acquired from <a href="http://sedac.ciesin.columbia.edu/gpw/">SEDAC</a>
+  </div>
+
+  <div id="currentInfo">
+    <span id="year1990" class="year">1990</span>
+    <span id="year1995" class="year">1995</span>
+    <span id="year2000" class="year">2000</span>
+    <button id="playButton">Play</button>
+    <button id="pauseButton">Pause</button>
+  </div>
+
+  <div id="title">
+    World Population
+  </div>
+
+  <a id="ce" href="http://www.chromeexperiments.com/globe">
+    <span>This is a Chrome Experiment</span>
+  </a>
+
+  <script type="text/javascript" src="third-party/Detector.js"></script>
+  <script type="text/javascript" src="third-party/three.min.js"></script>
+  <script type="text/javascript" src="third-party/Tween.js"></script>
+  <script type="text/javascript" src="globe.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
