@@ -70,6 +70,10 @@ d3.select('#timeSlider').selectAll('.track-overlay').call(d3.drag()
         handle.attr("cx", x(dateIdx));
         const yearIdx = Math.floor(dateIdx/12);
         const monthIdx = dateIdx % 12;
+        const year = YEARS[yearIdx];
+        const month = MONTHS[monthIdx];
 
-        loadData(MONTHS[monthIdx], YEARS[yearIdx]);
+        document.getElementById('timeSliderLabel').innerHTML = month+' '+year;
+
+        loadData(month, year);
     }));
