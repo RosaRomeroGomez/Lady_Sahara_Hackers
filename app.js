@@ -1,9 +1,6 @@
 var years = ['1990','1995','2000'];
 var container = document.getElementById('container');
 var globe = new DAT.Globe(container);
-//var datafile = 'data/output.json';
-var datafile = 'population909500.json';
-//var datafile = '200606-200612-A50B2498593501260892EEDEB9452B8A_ferret_listing.csvAUG-2006"_output.json';
 
 console.log(globe);
 var i, tweens = [];
@@ -23,30 +20,34 @@ var settime = function(globe, t) {
   };
 };
 
-var xhr;
 TWEEN.start();
 
-xhr = new XMLHttpRequest();
-xhr.open('GET', datafile, true);
-xhr.onreadystatechange = function(e) {
-  if (xhr.readyState === 4) {
-    if (xhr.status === 200) {
-      var data = JSON.parse(xhr.responseText);
-      window.data = data;
-      for (i=0;i<data.length;i++) {
-        globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+function loadData(month, year) {
+    var xhr = new XMLHttpRequest();
+    const datafile = 'data/output/'+month+'-'+year+'.json';
+    xhr.open('GET', datafile, true);
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          //window.data = data;
+          for (i=0;i<data.length;i++) {
+            globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+          }
+          globe.createPoints();
+          settime(globe,0)();
+          globe.animate();
+          document.body.style.backgroundImage = 'none'; // remove loading
+        }
       }
-      globe.createPoints();
-      settime(globe,0)();
-      globe.animate();
-      document.body.style.backgroundImage = 'none'; // remove loading
-    }
-  }
-};
-xhr.send(null);
+    };
+    xhr.send(null);
+}
+
+loadData('JAN', '2007');
 
 //Testing animation through time
-let animationStep = 0;
+/**let animationStep = 0;
 let animationInterval = 1000; //milliseconds
 function animationCallback() {
     settime(globe, animationStep)();
@@ -58,4 +59,17 @@ function animateTime() {
 };
 
 let playButton = document.getElementById('playButton');
-playButton.onclick = animateTime;
+playButton.onclick = animateTime;*/
+
+//Time slider callbacks
+d3.select('#timeSlider').selectAll('.track-overlay').call(d3.drag()
+    .on("start.interrupt", function() {
+        slider.interrupt();
+    }).on("start drag", function() {
+        const dateIdx = Math.floor(x.invert(d3.event.x));
+        handle.attr("cx", x(dateIdx));
+        const yearIdx = Math.floor(dateIdx/12);
+        const monthIdx = dateIdx % 12;
+
+        loadData(MONTHS[monthIdx], YEARS[yearIdx]);
+    }));

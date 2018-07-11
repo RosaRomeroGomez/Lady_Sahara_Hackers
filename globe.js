@@ -183,7 +183,7 @@ DAT.Globe = function(container, opts) {
     }
 
     if (opts.animated) {
-      if (this._baseGeometry === undefined) {
+      //if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
         for (i = 0; i < data.length; i += step) {
           lat = data[i];
@@ -193,7 +193,7 @@ DAT.Globe = function(container, opts) {
           size = 0;
           addPoint(lat, lng, size, color, this._baseGeometry);
         }
-      }
+      //}
       if(this._morphTargetId === undefined) {
         this._morphTargetId = 0;
       } else {
