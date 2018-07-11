@@ -20,13 +20,13 @@ def parse_csv(file_name):
 
 			months = []
 			for rows in reader:
-				month = rows[0][4:]
+				month = rows[0][4:].replace('"', '')
 				months.append(month)
 			
 			months = set(months)
 
 			for i in months:
-			 	with open("../output/" + file_name + i + '_output.json', 'w') as output:
+			 	with open("../output/" + i + '.json', 'w') as output:
 			 		month_data = []
 			 		for rows in reader:
 			 			month = rows[0][4:]
@@ -37,8 +37,8 @@ def parse_csv(file_name):
 			 		data_points = []
 			 		for item in month_data:
 			 			if item[4] != '-1.E+34  ':
-			 				data_points.append(float(item[2]))
 			 				data_points.append(float(item[3]))
+			 				data_points.append(float(item[2]))
 			 				data_points.append(float(item[4]))
 
 			 		series = [[i,data_points]]
