@@ -1,28 +1,55 @@
+from os import listdir
 import csv,json
 
 
-def read_csv(file_path):
+def find_csv_filenames( path_to_dir, suffix=".csv" ):
 
-	with open('../output.json', 'w') as output:
-		with open(file_path, 'rb') as csvfile:
+    filenames = listdir(path_to_dir)
+    return [ filename for filename in filenames if filename.endswith( suffix ) ]
+
+
+def parse_csv(file_name):
+
+		with open("../2006-2014/" + file_name, 'rb') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-			writer = csv.writer(output, delimiter=',', quotechar='|')
 
 			for _ in range(11):
 				next(reader)
 
-			data_points = []
-			date = ''	
+			reader = list(reader)
+
+			months = []
 			for rows in reader:
-				date = rows[0]
-				data_points.append(float(rows[2]))
-				data_points.append(float(rows[3]))
-				data_points.append(float(rows[4]))
+				month = rows[0][4:]
+				months.append(month)
+			
+			months = set(months)
 
-			series = [[date,data_points]]
+			for i in months:
+			 	with open("../output/" + file_name + i + '_output.json', 'w') as output:
+			 		month_data = []
+			 		for rows in reader:
+			 			month = rows[0][4:]
+			 			if month == i:
+			 				month_data.append(rows)
 
-			json.dump(series, output)			
+			 		series = []
+			 		data_points = []
+			 		for item in month_data:
+			 			if item[4] != '-1.E+34  ':
+			 				data_points.append(float(item[2]))
+			 				data_points.append(float(item[3]))
+			 				data_points.append(float(item[4]))
 
+			 		series = [[i,data_points]]
+			 		json.dump(series, output)
 
+def parse_csvs(list_files):
 
-read_csv('../36E09D4B17B41DE8B808C59AC08D3E5D_ferret_listing.csv')
+	for file in list_files:
+		parse_csv(file)
+
+#parse_csv("200606-200612-A50B2498593501260892EEDEB9452B8A_ferret_listing.csv")
+
+list_files = find_csv_filenames("../2006-2014")
+parse_csvs(list_files)
