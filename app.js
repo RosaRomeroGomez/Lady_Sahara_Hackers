@@ -23,14 +23,8 @@ var settime = function(globe, t) {
   };
 };
 
-for(var i = 0; i<years.length; i++) {
-  var y = document.getElementById('year'+years[i]);
-  y.addEventListener('mouseover', settime(globe,i), false);
-}
-
 var xhr;
 TWEEN.start();
-
 
 xhr = new XMLHttpRequest();
 xhr.open('GET', datafile, true);
