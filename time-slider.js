@@ -24,8 +24,15 @@ slider.append("line")
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
-    .attr("transform", "translate(0," + 18 + ")");
+    .attr("transform", "translate(0," + 24 + ")")
+  .selectAll("text")
+  .data(x.ticks(10))
+  .enter().append("text")
+    .attr("x", x)
+    .attr("text-anchor", "middle")
+//    .attr("transform", "translate(0,8)")
+    .text(function(d) { return d + "°"; });
 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
-    .attr("r", 9);
+    .attr("r", 12);
