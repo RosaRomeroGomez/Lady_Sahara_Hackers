@@ -18,7 +18,7 @@ DAT.Globe = function(container, opts) {
 
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
-    c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
+    c.setHSL( ( 0.16 - ( x * 0.5 ) ), 1.0, 0.5 );
     return c;
   };
   var imgDir = opts.imgDir || '';
@@ -99,8 +99,8 @@ DAT.Globe = function(container, opts) {
 
     scene = new THREE.Scene();
 
-    //var geometry = new THREE.SphereGeometry(200, 40, 30);
-    var geometry = new THREE.CircleGeometry( 5, 24 );
+    var geometry = new THREE.SphereGeometry(200, 40, 30);
+    //var geometry = new THREE.CircleGeometry( 5, 24 );
 
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
@@ -407,4 +407,3 @@ DAT.Globe = function(container, opts) {
   return this;
 
 };
-

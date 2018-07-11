@@ -2,8 +2,8 @@ var years = ['1990','1995','2000'];
 var container = document.getElementById('container');
 var globe = new DAT.Globe(container);
 //var datafile = 'data/output.json';
-var datafile = 'population909500.json';
-//var datafile = '200606-200612-A50B2498593501260892EEDEB9452B8A_ferret_listing.csvAUG-2006"_output.json';
+//var datafile = 'population909500.json';
+var datafile = 'data/output/APR-2007.json';
 
 console.log(globe);
 var i, tweens = [];
