@@ -1,6 +1,8 @@
 var years = ['1990','1995','2000'];
 var container = document.getElementById('container');
 var globe = new DAT.Globe(container);
+var datafile = 'data/output/APR-2007.json';
+
 
 console.log(globe);
 var i, tweens = [];
