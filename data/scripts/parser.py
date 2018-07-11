@@ -29,7 +29,7 @@ def parse_csv(file_name):
 			 	with open("../output/" + i + '.json', 'w') as output:
 			 		month_data = []
 			 		for rows in reader:
-			 			month = rows[0][4:]
+			 			month = rows[0][4:].replace('"', '')
 			 			if month == i:
 			 				month_data.append(rows)
 
