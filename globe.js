@@ -214,7 +214,7 @@ DAT.Globe = function(container, opts) {
         lng = data[i + 1];
         color = colorFnWrapper(data,i);
         size = data[i + 2];
-        size = size*200;
+        size = size*10;
         addPoint(lat, lng, size, color, subgeo);
       }
 
@@ -267,7 +267,9 @@ DAT.Globe = function(container, opts) {
 
     point.lookAt(mesh.position);
 
-    point.scale.z = size; // avoid non-invertible matrix
+    //point.scale.z = size;
+    point.scale.x = size;
+    point.scale.y = size;
     point.updateMatrix();
 
     for (var i = 0; i < point.geometry.faces.length; i++) {

@@ -13,7 +13,7 @@ var i, tweens = [];
 var settime = function(globe, t) {
   return function() {
     new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-    var y = document.getElementById('year'+years[t]);
+    /**var y = document.getElementById('year'+years[t]);
     if (y.getAttribute('class') === 'year active') {
       return;
     }
@@ -21,7 +21,7 @@ var settime = function(globe, t) {
     for(i=0; i<yy.length; i++) {
       yy[i].setAttribute('class','year');
     }
-    y.setAttribute('class', 'year active');
+    y.setAttribute('class', 'year active');*/
   };
 };
 
