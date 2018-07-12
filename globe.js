@@ -18,7 +18,7 @@ DAT.Globe = function(container, opts) {
 
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
-    c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
+    c.setHSL( ( 0.16 - ( x * 0.5 ) ), 1.0, 0.5 );
     return c;
   };
   var imgDir = opts.imgDir || '';
@@ -62,7 +62,7 @@ DAT.Globe = function(container, opts) {
         'varying vec3 vNormal;',
         'void main() {',
           'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 12.0 );',
-          'gl_FragColor = vec4( 1.0, 1.0, 1.0, 1.0 ) * intensity;',
+          'gl_FragColor = vec4( 1.0, 1.0, 1.0, 0.5 ) * intensity;',
         '}'
       ].join('\n')
     }
@@ -136,7 +136,9 @@ DAT.Globe = function(container, opts) {
     mesh.scale.set( 1.1, 1.1, 1.1 );
     scene.add(mesh);
 
-    geometry = new THREE.BoxGeometry(0.75, 0.75, 1);
+    geometry = new THREE.BoxGeometry(1, 1, 1, 1, 1, 1, null, false, { px: true,
+          nx: true, py: true, ny: true, pz: false, nz: true});
+
 
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0,0,-0.5));
 
@@ -197,7 +199,7 @@ DAT.Globe = function(container, opts) {
             addPoint(lat, lng, size, color, this._baseGeometry);
           }
 
-          
+
         }
       //}
       if(this._morphTargetId === undefined) {
@@ -212,12 +214,13 @@ DAT.Globe = function(container, opts) {
       if (data[i + 2]!==0){
         lat = data[i];
         lng = data[i + 1];
-        color = colorFnWrapper(data,i);
-        size = data[i + 2];
-        size = size*200;
+        color = colorFn(data,[i+2]);
+        size = size*100;
+//        size = data[i + 2];
+//        size = size*100;
         addPoint(lat, lng, size, color, subgeo);
       }
-      
+
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
@@ -267,7 +270,7 @@ DAT.Globe = function(container, opts) {
 
     point.lookAt(mesh.position);
 
-    point.scale.z = size; // avoid non-invertible matrix
+    point.scale.xy = -size; // avoid non-invertible matrix
     point.updateMatrix();
 
     for (var i = 0; i < point.geometry.faces.length; i++) {
@@ -417,4 +420,3 @@ DAT.Globe = function(container, opts) {
   return this;
 
 };
-
