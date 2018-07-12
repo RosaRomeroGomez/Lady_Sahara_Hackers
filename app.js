@@ -46,7 +46,7 @@ function loadData(month, year) {
     xhr.send(null);
 }
 
-loadData('JAN', '2007');
+loadData('JUN', '2006');
 
 //Testing animation through time
 /**let animationStep = 0;
@@ -69,12 +69,9 @@ d3.select('#timeSlider').selectAll('.track-overlay').call(d3.drag()
         slider.interrupt();
     }).on("start drag", function() {
         const dateIdx = Math.floor(x.invert(d3.event.x));
+        const month = dates[dateIdx].month;
+        const year = dates[dateIdx].year;
         handle.attr("cx", x(dateIdx));
-        const yearIdx = Math.floor(dateIdx/12);
-        const monthIdx = dateIdx % 12;
-        const year = YEARS[yearIdx];
-        const month = MONTHS[monthIdx];
-
         document.getElementById('timeSliderLabel').innerHTML = month+' '+year;
 
         loadData(month, year);

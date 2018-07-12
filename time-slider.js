@@ -9,7 +9,7 @@ var slider = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
 
 var x = d3.scaleLinear()
-    .domain([0, 96])
+    .domain([0, dates.length])
     .range([0, width])
     .clamp(true);
 
@@ -22,16 +22,24 @@ slider.append("line")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-overlay");
 
+var axis = d3.scaleLinear()
+    .domain([0, YEARS.length])
+    .range([0, width]);
+
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
     .attr("transform", "translate(0," + 24 + ")")
   .selectAll("text")
-  .data(x.ticks(10))
+  .data(YEARS)
   .enter().append("text")
-    .attr("x", x)
+    .attr("x", function(d, i) {
+        return axis(i);
+    })
     .attr("text-anchor", "middle")
 //    .attr("transform", "translate(0,8)")
-    .text(function(d) { return d + "°"; });
+    .text(function(d) {
+        return d;
+    });
 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
