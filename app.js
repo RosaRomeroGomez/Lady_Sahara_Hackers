@@ -2,6 +2,9 @@ var years = ['1990','1995','2000'];
 var container = document.getElementById('container');
 var globe = new DAT.Globe(container);
 var datafile = 'data/output/APR-2007.json';
+var currentDateIdx = 0;
+var animationInterval = 1000; //milliseconds
+const totalDates = dates.length;
 
 
 console.log(globe);
@@ -49,20 +52,25 @@ function loadData(month, year) {
 
 loadData('JUN', '2006');
 
-//Testing animation through time
-/**let animationStep = 0;
-let animationInterval = 1000; //milliseconds
-function animationCallback() {
-    settime(globe, animationStep)();
-    animationStep = animationStep < 2 ? animationStep + 1 : 0;
-};
+function playOnClick(d) {
+    if (d.interval){
+        clearInterval(d.interval);
+        d.interval = null;
+        d.innerHTML='Play';
+    } else {
+        d.interval = setInterval(function() {
+          currentDateIdx = currentDateIdx < totalDates ? currentDateIdx + 1 : 0;
+          updateTimeSlider(currentDateIdx);
+          loadData(dates[currentDateIdx].month, dates[currentDateIdx].year);
+      }, animationInterval);
+        d.innerHTML='Pause';
+    }
+}
 
-function animateTime() {
-    setInterval(animationCallback, animationInterval);
-};
-
-let playButton = document.getElementById('playButton');
-playButton.onclick = animateTime;*/
+function updateTimeSlider(dateIdx) {
+    handle.attr("cx", x(dateIdx));
+    document.getElementById('timeSliderLabel').innerHTML = dates[dateIdx].month+' '+dates[dateIdx].year;
+}
 
 //Time slider callbacks
 d3.select('#timeSlider').selectAll('.track-overlay').call(d3.drag()
@@ -70,10 +78,7 @@ d3.select('#timeSlider').selectAll('.track-overlay').call(d3.drag()
         slider.interrupt();
     }).on("start drag", function() {
         const dateIdx = Math.floor(x.invert(d3.event.x));
-        const month = dates[dateIdx].month;
-        const year = dates[dateIdx].year;
-        handle.attr("cx", x(dateIdx));
-        document.getElementById('timeSliderLabel').innerHTML = month+' '+year;
-
-        loadData(month, year);
+        updateTimeSlider(dateIdx);
+        loadData(dates[dateIdx].month, dates[dateIdx].year);
+        currentDateIdx = dateIdx;
     }));
