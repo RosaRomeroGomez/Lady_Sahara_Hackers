@@ -214,7 +214,8 @@ DAT.Globe = function(container, opts) {
         size = data[i + 2];
         size = size*10;
         addPoint(lat, lng, size, color, subgeo);
-      
+      //}
+
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
