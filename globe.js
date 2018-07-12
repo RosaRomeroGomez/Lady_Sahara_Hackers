@@ -415,9 +415,11 @@ DAT.Globe = function(container, opts) {
   this.scene = scene;
 
   this.clearData = function() {
+
+    console.log(this.scene);
   	if (this.scene.children) {
-        while(this.scene.children.length > 0){
-            this.scene.remove(this.scene.children[0]);
+        while(this.scene.children.length > 1){
+            this.scene.remove(this.scene.children[this.scene.children.length-1]);
         }
     }
   };
