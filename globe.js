@@ -18,7 +18,9 @@ DAT.Globe = function(container, opts) {
 
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color();
-    c.setHSL( ( 0.16 - ( x * 0.5 ) ), 1.0, 0.5 );
+    //c.setHSL( ( 0.16 - ( x * 0.5 ) ), 1.0, 0.5 );
+    var hex = d3.interpolateInferno(Math.min(x, 1));
+    var c = new THREE.Color(hex);
     return c;
   };
   var imgDir = opts.imgDir || '';

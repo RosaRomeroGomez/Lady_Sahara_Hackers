@@ -69,7 +69,7 @@ function playOnClick(d) {
 
 function updateTimeSlider(dateIdx) {
     handle.attr("cx", x(dateIdx));
-    document.getElementById('timeSliderLabel').innerHTML = dates[dateIdx].month+' '+dates[dateIdx].year;
+    document.getElementById('timeSliderLabel').innerHTML = "Selected month: " + dates[dateIdx].month+' '+dates[dateIdx].year;
 }
 
 //Time slider callbacks
