@@ -197,7 +197,7 @@ DAT.Globe = function(container, opts) {
             addPoint(lat, lng, size, color, this._baseGeometry);
           }
 
-          
+
         }
       //}
       if(this._morphTargetId === undefined) {
@@ -217,7 +217,7 @@ DAT.Globe = function(container, opts) {
         size = size*200;
         addPoint(lat, lng, size, color, subgeo);
       }
-      
+
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
@@ -413,6 +413,14 @@ DAT.Globe = function(container, opts) {
   this.createPoints = createPoints;
   this.renderer = renderer;
   this.scene = scene;
+
+  this.clearData = function() {
+  	if (this.scene.children) {
+        while(this.scene.children.length > 0){
+            this.scene.remove(this.scene.children[0]);
+        }
+    }
+  };
 
   return this;
 

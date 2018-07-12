@@ -32,6 +32,7 @@ function loadData(month, year) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
+          globe.clearData();
           //window.data = data;
           for (i=0;i<data.length;i++) {
             globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
