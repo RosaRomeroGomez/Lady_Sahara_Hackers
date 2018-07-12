@@ -138,6 +138,16 @@ transition: all 0.4s ease 0s;
     background: none;
 }
 
+#description{
+    position: absolute;
+    margin: auto;
+    left: 2%;
+    top:150px;
+    height:64px;
+    width: 200px;
+    background: none;
+}
+
 
 
 

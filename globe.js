@@ -189,15 +189,13 @@ DAT.Globe = function(container, opts) {
         this._baseGeometry = new THREE.Geometry();
         for (i = 0; i < data.length; i += step) {
 
-        if (data[i + 2]!==0){
             lat = data[i];
             lng = data[i + 1];
             size = data[i + 2];
             color = colorFnWrapper(data,i);
             //size = 0;
             addPoint(lat, lng, size, color, this._baseGeometry);
-          }
-
+          
 
         }
       //}
@@ -210,15 +208,13 @@ DAT.Globe = function(container, opts) {
     }
     var subgeo = new THREE.Geometry();
     for (i = 0; i < data.length; i += step) {
-      if (data[i + 2]!==0){
         lat = data[i];
         lng = data[i + 1];
         color = colorFnWrapper(data,i);
         size = data[i + 2];
         size = size*10;
         addPoint(lat, lng, size, color, subgeo);
-      }
-
+      
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
