@@ -3,6 +3,14 @@ This repository includes all the code generated for our project related to the v
 
 ![alt text](https://github.com/RosaRomeroGomez/Lady_Sahara_Hackers/blob/master/screenshot.png)
 
-
 ## Run it
 python -m SimpleHTTPServer
+
+## Contributors
+
+* Danielle Smalls 
+* Bonnie Lum 
+* Guia Gali
+* Brittany Kondo
+* Rosa Romero-Gómez
+
